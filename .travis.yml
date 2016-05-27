@@ -1,0 +1,13 @@
+language: node_js
+node_js:
+  - stable
+  - 5.1
+  - 4.2
+  - 0.12
+
+sudo: false
+
+matrix:
+  fast_finish: true
+
+script: npm run coveralls
