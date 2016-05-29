@@ -27,7 +27,7 @@
             "name": "Launch Examples",
             "type": "node",
             "request": "launch",
-            "program": "${workspaceRoot}/tools/examples.js",
+            "program": "${workspaceRoot}/examples/example-chrome.js",
             "stopOnEntry": false,
             "args": [],
             "cwd": "${workspaceRoot}",

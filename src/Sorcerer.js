@@ -1,5 +1,8 @@
 var htmlParser = require("htmlParser2");
-var DefaultAprentice = require("./Chrome/ChromeApprentice.js");
+var DefaultAprentice = require("./Apprentice.js");
+var helpers = require("./Helpers.js");
+
+const NEWLINE = "\n";
 
 function Sorcerer() {
     this.apprentice = new DefaultAprentice();
@@ -22,11 +25,9 @@ Sorcerer.prototype.withApprentice = function(apprentice){
 
 Sorcerer.prototype.wrapLines = function (){
     var input = this.content;
-    if(!input) return this;
 
     var output = "";
     var offset = 0;
-    const NEWLINE = "\n";
     var lastPos = input.indexOf(NEWLINE, offset);
 
     while(lastPos >= 0) {
@@ -37,7 +38,7 @@ Sorcerer.prototype.wrapLines = function (){
         lastPos = input.indexOf(NEWLINE, offset);
     }
 
-    if(offset < input.length) {
+    if(offset < input.length || input.length === 0){
         this.lines++;
         output += this.apprentice.brewLine(input.substring(offset),this.lines);
     }
@@ -52,34 +53,58 @@ Sorcerer.prototype.parseContent = function (input){
 
     var output = "";
     var parser = new htmlParser.Parser({
-        onopentagname: function (name){
-                output += this.apprentice.brewOpenTag(name);
-            }.bind(this),
+        onopentag: function (name,attributes){
+
+            var attributePairs = [];
+            var isVoidTag = helpers.isVoidTag(name);
+            Object.keys(attributes||{}).forEach(function (key){
+                attributePairs.push(this.apprentice.brewAttribute(key, attributes[key]));
+            }.bind(this));
+            output += this.apprentice.brewOpenTag(name,attributePairs,isVoidTag);
+
+        }.bind(this),
 
         ontext: function (text){
-                output += this.apprentice.brewText(text);
-            }.bind(this),
+            output += this.apprentice.brewText(text);
+        }.bind(this),
 
         onclosetag: function (name){
-                output += this.apprentice.brewCloseTag(name);
-            }.bind(this),
+            var isVoidTag = helpers.isVoidTag(name);
 
-        onattribute:function(name, value){
-                output += this.apprentice.brewAttribute(name, value);
-            }.bind(this),
+            // void tags should not have closing tag
+            if(!isVoidTag) {
+                output += this.apprentice.brewCloseTag(name);
+            }
+        }.bind(this),
 
         oncomment:function(data){
-                output += this.apprentice.brewComment(data);
-            }.bind(this),
+            output += this.apprentice.brewCommentStart(data);
+        }.bind(this),
+
+        oncommentend:function(){
+            output += this.apprentice.brewCommentEnd();
+        }.bind(this),
+
+        oncdatastart:function(){
+            output += this.apprentice.brewCDataStart();
+        }.bind(this),
+
+        oncdataend:function(){
+            output += this.apprentice.brewCDataEnd();
+        }.bind(this),
+
+        onprocessinginstruction:function(name,data){
+            output += this.apprentice.brewProcessingInstruction(name,data);
+        }.bind(this),
+
         onerror:function(err){
             this.errors.push(err);
-        }
+        }.bind(this)
     }, {
-        decodeEntities: true,
-        recognizeSelfClosing:false
+        decodeEntities: false
+        //recognizeSelfClosing:true
     });
-    parser.write(input);
-    parser.end();
+    parser.parseComplete(input);
 
     this.content = output;
 
@@ -87,8 +112,7 @@ Sorcerer.prototype.parseContent = function (input){
 };
 
 Sorcerer.prototype.wrapContent = function (){
-    if(!this.content) return this;
-    this.content = `<table><tbody>${this.content}</tbody></table>`;
+    this.content = this.apprentice.brewContent(this.content);
 
     return this;
 };
@@ -99,7 +123,7 @@ Sorcerer.prototype.get = function(){
 
 Sorcerer.prototype.abrakadabra = function (input){
     return this.reset()
-        .parseContent(input)
+        .parseContent(input||"")
         .wrapLines()
         .wrapContent().get();
 };
