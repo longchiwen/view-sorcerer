@@ -1,32 +1,35 @@
 var Sorcerer = require("../src/Sorcerer.js");
 
-describe("Parsing of single line", function (){
+describe("Abrakadabra", function (){
 
-    var funct = null;
+    var inst = null;
 
     beforeAll(function (){
-        var inst = new Sorcerer();
-        funct = inst.parseLineContent;
+        inst = new Sorcerer();
     });
 
     it("should handle empty input (undefined,null,empty)", function (){
 
         var output;
-        output = funct();
+        output = inst.abrakadabra();
         expect(output).toBe("");
 
-        output = funct("");
+        output = inst.abrakadabra("");
         expect(output).toBe("");
 
-        output = funct(null);
+        output = inst.abrakadabra(null);
         expect(output).toBe("");
     });
 
-    it("should create html-tag wrapper for node", function (){
+    it("should return corrent number of lines", function (){
 
-        var output;
-        output = funct("<span>");
-        expect(output).toBe(`<span class="html-tag">&lt;span&gt;</span>`);
+        inst.abrakadabra("<span>");
+        expect(inst.lines).toBe(1);
+
+        inst.abrakadabra(`<span>
+        <br>
+        </span>`);
+        expect(inst.lines).toBe(3);
 
     });
 
