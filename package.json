@@ -1,38 +1,38 @@
 {
-  "name": "view-sorcerer",
-  "version": "1.0.0",
-  "description": "Let me show a viewsource in your view source",
-  "main": "src/index.js",
-  "files": [
-    "src"
-  ],
-  "scripts": {
-    "jasmine": "jasmine JASMINE_CONFIG_PATH=test/support/jasmine.json",
-    "test": "npm run lint && npm run jasmine",
-    "lint": "jscs src test && eslint src/**/*.js test/**/*.js",
-    "fix": "jscs src test --fix",
-    "pack": "node tools/pack.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/longchiwen/view-sorcerer.git"
-  },
-  "keywords": [
-    "javascript"
-  ],
-  "author": "longchiwen",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/longchiwen/view-sorcerer/issues"
-  },
-  "homepage": "https://github.com/longchiwen/view-sorcerer#readme",
-  "dependencies": {    
-    "htmlparser2": "^3.9.0"
-  },
-  "devDependencies": {
-    "browserify": "^13.0.1",
-    "eslint": "^2.11.0",
-    "jasmine": "^2.4.1",
-    "jscs": "^3.0.3"
-  }
+    "name": "view-sorcerer",
+    "version": "1.0.0",
+    "description": "Let me show a viewsource in your view source",
+    "main": "src/index.js",
+    "files": [
+        "src"
+    ],
+    "scripts": {
+        "jasmine": "jasmine JASMINE_CONFIG_PATH=test/support/jasmine.json",
+        "test": "npm run lint && npm run jasmine",
+        "lint": "jscs src test && eslint src/**/*.js test/**/*.js",
+        "fix": "jscs src test --fix",
+        "pack": "node tools/pack.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/longchiwen/view-sorcerer.git"
+    },
+    "keywords": [
+        "javascript"
+    ],
+    "author": "longchiwen",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/longchiwen/view-sorcerer/issues"
+    },
+    "homepage": "https://github.com/longchiwen/view-sorcerer#readme",
+    "dependencies": {
+        "htmlparser2": "^3.9.0"
+    },
+    "devDependencies": {
+        "browserify": "^13.0.1",
+        "eslint": "^2.11.0",
+        "jasmine": "^2.4.1",
+        "jscs": "^3.0.3"
+    }
 }
