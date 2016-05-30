@@ -1,4 +1,4 @@
-var htmlParser = require("htmlParser2");
+var htmlParser = require("htmlparser2");
 var DefaultAprentice = require("./Apprentice.js");
 var helpers = require("./Helpers.js");
 
