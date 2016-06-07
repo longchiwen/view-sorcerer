@@ -1,0 +1,64 @@
+.sorcerer-standalone {
+    width:100%;
+    display: block;
+    margin:0 0;
+}
+
+.sorcerer-content {
+    width:100%;
+
+    word-break: break-word;
+    font-size: 13px;
+    font-family: monospace;
+    white-space: pre-wrap;
+    border-spacing: 0;
+    margin: 0;
+
+    .sorcerer-line-number {
+        text-align: right;
+        box-sizing: border-box;
+        width: 31px;
+        background-color: rgb(240, 240, 240);
+        padding-left: 4px;
+        padding-right: 4px;
+        border-right: 1px solid rgb(187, 187, 187);
+
+        color: rgb(128, 128, 128);
+        word-break: normal;
+        white-space: nowrap;
+        font-size: 9px;
+        font-family: Helvetica;
+    }
+
+    .sorcerer-line-content{
+        padding-left: 5px;
+        padding-right: 5px;
+        font-size: 13px;
+        font-family: monospace;
+    }
+
+    .sorcerer-html-tag{
+        color: rgb(136, 18, 128);
+    }
+
+    .sorcerer-html-comment{
+        color: rgb(35, 110, 37);
+    }
+
+    .sorcerer-html-cdata{
+        color: rgb(192, 192, 192);
+    }
+
+    .sorcerer-html-doctype{
+        color: rgb(192, 192, 192);
+    }
+
+    .sorcerer-html-attribute-name{
+        color: rgb(153, 69, 0);
+    }
+
+    .sorcerer-html-attribute-value{
+        color: rgb(26, 26, 166);
+    }
+}
+

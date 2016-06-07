@@ -9,8 +9,8 @@
             "double"
         ],
         "linebreak-style": [
-            1,
-            "windows"
+            0,
+            "unix"
         ],
         "semi": [
             2,
